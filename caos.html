@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f8fc;
+            padding: 20px;
+        }
+        .correo {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 400px;
+            border-bottom: 1px solid #ddd;
+        }
+        .correo:hover {
+            background: #f1f3f4;
+        }
+        .asunto {
+            font-weight: bold;
+        }
+        .remitente {
+            color: gray;
+        }
+    </style>
+    <script>
+        function abrirCaos() {
+            let cantidadVentanas = 15; // MÁS ventanas para más caos
+            let gifs = [
+                "https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif",
+                "https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif",
+                "https://media.giphy.com/media/l0HlRnAWY5eaI3iX2/giphy.gif",
+                "https://media.giphy.com/media/xT5LMzx9R4sXqZcLzq/giphy.gif",
+                "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",
+                "https://media.giphy.com/media/13CoXDiaCcCoyk/giphy.gif"
+            ];
+            
+            let sonidos = [
+                "https://www.myinstants.com/media/sounds/wilhelm-scream.mp3",
+                "https://www.myinstants.com/media/sounds/vine-boom.mp3",
+                "https://www.myinstants.com/media/sounds/bruh.mp3",
+                "https://www.myinstants.com/media/sounds/roadrunner.mp3",
+                "https://www.myinstants.com/media/sounds/fnaf-scream.mp3"
+            ];
+
+            for (let i = 0; i < cantidadVentanas; i++) {
+                let x = Math.floor(Math.random() * window.screen.width);
+                let y = Math.floor(Math.random() * window.screen.height);
+                let w = Math.floor(Math.random() * 400) + 300;
+                let h = Math.floor(Math.random() * 400) + 300;
+
+                let nuevaVentana = window.open("", "_blank", `width=${w},height=${h},left=${x},top=${y}`);
+
+                if (nuevaVentana) {
+                    let esGIF = Math.random() > 0.5; // 50% de probabilidad de GIF o imagen aleatoria
+                    let urlContenido = esGIF 
+                        ? gifs[Math.floor(Math.random() * gifs.length)] 
+                        : `https://picsum.photos/${w}/${h}?random=${Math.random()}`;
+
+                    nuevaVentana.document.write(`
+                        <body style="background: black; display: flex; justify-content: center; align-items: center; height: 100vh;">
+                            <img id="imgCaos" src="${urlContenido}" style="max-width: 100%; max-height: 100%;">
+                            <script>
+                                setInterval(() => {
+                                    document.getElementById("imgCaos").src = "${esGIF 
+                                        ? gifs[Math.floor(Math.random() * gifs.length)] 
+                                        : `https://picsum.photos/${w}/${h}?random=${Math.random()}`}";
+                                    document.body.style.background = "#" + Math.floor(Math.random()*16777215).toString(16);
+                                }, 1000);
+                            <\/script>
+                        </body>
+                    `);
+
+                    // 30% de probabilidad de agregar sonido a la ventana
+                    if (Math.random() < 0.3) {
+                        let sonidoAleatorio = sonidos[Math.floor(Math.random() * sonidos.length)];
+                        let audioTag = `<audio autoplay loop><source src="${sonidoAleatorio}" type="audio/mpeg"></audio>`;
+                        nuevaVentana.document.write(audioTag);
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>📩 Gmail</h1>
+    <div class="correo" onclick="abrirCaos()">
+        <p class="remitente">Virtual Party <virtual@eventos.com></p>
+        <p class="asunto">🎉 Invitación a la Fiesta Virtual mas grande de la historia, unete a nosotros</p>
+        <p>Haz clic para unirte a la experiencia...</p>
+    </div>
+</body>
+</html>
